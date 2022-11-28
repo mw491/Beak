@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+hr {
+    height: 1px;
+    border: none;
+    background-color: #404040;
+    /* opacity: .85; */
+}
+
+.btn {
+    @apply rounded-md my-1 py-2 px-3 bg-indigo-600 text-indigo-50 hover:text-white hover:bg-indigo-700 transition-colors;
+}

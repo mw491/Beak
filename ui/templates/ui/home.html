@@ -1,0 +1,25 @@
+{% extends "ui/base.html" %} {% block content %}
+<div>
+  {% for chirp in chirps %}
+  <article
+    class="p-4 cursor-pointer hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:bg-opacity-30 dark:hover:bg-opacity-30 transition-colors"
+    x-data="{ date: dayjs(getDate()).fromNow() }"
+    @click="console.log('hello world')"
+  >
+    <div class="flex gap-5 mb-2">
+      <h1 class="font-bold">{{ chirp.author }}</h1>
+      <p x-text="date" class="opacity-80"></p>
+    </div>
+    <h1>{{ chirp.content }}</h1>
+  </article>
+  <hr />
+
+  <script>
+    function getDate() {
+      return "{{ chirp.date_chirped|date:'c' }}";
+    }
+  </script>
+  {% endfor %}
+</div>
+
+{% endblock content %}

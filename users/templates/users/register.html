@@ -1,0 +1,44 @@
+{% extends "ui/base.html" %} {% block content %}
+<div class="w-full">
+  <form method="post">
+    {% csrf_token %}
+    <fieldset class="space-y-6">
+      <legend class="text-3xl font-semibold mb-2">Join Beak Today</legend>
+
+      <div class="flex gap-7 flex-col md:w-3/4 md:flex-row">
+
+        <div>
+          <span class="font-bold">{{ form.username.label_tag }}</span>
+          <span>{{ form.username }}</span>
+        </div>
+
+        <div>
+          <span class="font-bold">{{ form.full_name.label_tag }}</span>
+          <span>{{ form.full_name }}</span>
+        </div>
+
+      </div>
+
+      <div class="md:w-3/4">
+        <span class="font-bold">{{ form.email.label_tag }}</span>
+        <span>{{ form.email }}</span>
+      </div>
+
+      <div class="md:w-3/4"><span class="font-bold">Password:</span> <span>{{ form.password1 }}</span></div>
+      <div class="md:w-3/4">
+        <span class="font-bold">Confirm Password:</span>{{ form.password2 }}</span>
+      </div>
+
+    </fieldset>
+    <div class="mt-4">
+      <button class="btn" type="submit">Sign Up</button>
+    </div>
+  </form>
+  <div>
+    <small
+      >Already have an account?
+      <a href="#" class="ml-2 text-indigo-500">Sign In</a></small
+    >
+  </div>
+</div>
+{% endblock content %}

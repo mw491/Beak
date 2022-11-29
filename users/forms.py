@@ -4,28 +4,43 @@ from django.contrib.auth.models import User
 
 
 class RegisterForm(UserCreationForm):
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autocomplete": "off",
+                "autofocus": "true",
+                "placeholder": "First Name",
+            }
+        ),
+        max_length=32,
+        help_text="First Name",
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autocomplete": "off",
+                "placeholder": "Last Name",
+            }
+        ),
+        max_length=32,
+        help_text="Last Name",
+    )
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autocomplete": "off",
                 "placeholder": "Username",
             }
         )
-    )
-    full_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
-                "placeholder": "Full Name",
-            }
-        ),
-        max_length=32,
-        help_text="Full Name",
     )
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autocomplete": "off",
                 "placeholder": "Email",
             }
         ),
@@ -36,6 +51,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-200",
+                "autocomplete": "off",
                 "placeholder": "Password",
             }
         )
@@ -44,6 +60,7 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-200",
+                "autocomplete": "off",
                 "placeholder": "Confirm Password",
             }
         )

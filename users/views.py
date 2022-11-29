@@ -8,8 +8,16 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get("username")
-            messages.success(request, f"Account created for {username}")
+            form.save()
+            name = (
+                form.cleaned_data.get("first_name")
+                + " "
+                + form.cleaned_data.get("last_name")
+            )
+            messages.success(
+                request,
+                f"A new bird has hatched! Welcome to the new world, {name}!",
+            )
             return redirect("ui-home")
     else:
         form = RegisterForm()

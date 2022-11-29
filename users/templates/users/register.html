@@ -5,18 +5,43 @@
     <fieldset class="space-y-6">
       <legend class="text-3xl font-semibold mb-2">Join Beak Today</legend>
 
+      <!-- START first and last name -->
       <div class="flex gap-7 flex-col md:w-3/4 md:flex-row">
 
         <div>
-          <span class="font-bold">{{ form.username.label_tag }}</span>
-          <span>{{ form.username }}</span>
+          <span class="font-bold">{{ form.first_name.label_tag }}</span>
+          <span>{{ form.first_name }}</span>
         </div>
 
         <div>
-          <span class="font-bold">{{ form.full_name.label_tag }}</span>
-          <span>{{ form.full_name }}</span>
+          <span class="font-bold">{{ form.last_name.label_tag }}</span>
+          <span>{{ form.last_name }}</span>
         </div>
 
+      </div>
+      <!-- END first and last name -->
+
+      <div>
+        {% if form.errors %}
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                      <strong class="text-red-500">{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                  <strong class="text-red-500">{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+
+
+      <div class="md:w-3/4">
+        <span class="font-bold">{{ form.username.label_tag }}</span>
+        <span>{{ form.username }}</span>
       </div>
 
       <div class="md:w-3/4">
@@ -28,7 +53,7 @@
       <div class="md:w-3/4">
         <span class="font-bold">Confirm Password:</span>{{ form.password2 }}</span>
       </div>
-
+      <!-- {{ form.as_p }} -->
     </fieldset>
     <div class="mt-4">
       <button class="btn" type="submit">Sign Up</button>

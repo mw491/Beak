@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
 
@@ -51,7 +52,6 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-200",
-                "autocomplete": "off",
                 "placeholder": "Password",
             }
         )
@@ -60,7 +60,6 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(
             attrs={
                 "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-200",
-                "autocomplete": "off",
                 "placeholder": "Confirm Password",
             }
         )
@@ -75,3 +74,44 @@ class RegisterForm(UserCreationForm):
             "last_name",
             "email",
         )
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autocomplete": "off",
+                "autofocus": "true",
+                "placeholder": "Username",
+            }
+        ),
+        max_length=150,
+        help_text="Username",
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                "autofocus": "true",
+                "placeholder": "Password",
+            }
+        ),
+        max_length=150,
+        help_text="Password",
+    )
+
+    class Meta:
+        model = User
+        fields = ("username", "password")
+
+    def clean(self):
+        username = self.cleaned_data.get("username")
+        password = self.cleaned_data.get("password")
+        user = authenticate(username=username, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError(
+                "Sorry, that login was invalid. Please try again."
+            )
+        return self.cleaned_data

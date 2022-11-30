@@ -69,10 +69,12 @@
           <div class="flex flex-col md:flex-row md:ml-6">
             <a
               class="my-1 py-2 px-3 rounded-md text-md text-gray-700 dark:text-white hover:text-indigo-500 dark:hover:text-indigo-300 md:mx-4 md:my-0 transition-colors"
-              href="#"
+              href="{% url 'login' %}"
               >Login</a
             >
-            <a class="btn md:mx-4 md:my-0"  href="{% url 'register' %}">Sign Up</a>
+            <a class="btn md:mx-4 md:my-0" href="{% url 'register' %}"
+              >Sign Up</a
+            >
           </div>
         </div>
       </div>

@@ -1,0 +1,31 @@
+{% extends "ui/base.html" %} {% block content %}
+<div class="w-full">
+  <form method="post">
+    {% csrf_token %}
+    <fieldset class="space-y-6">
+      <legend class="text-3xl font-semibold mb-2">Sign In</legend>
+
+      <div class="md:w-3/4">
+        <span class="font-bold">{{ form.username.label_tag }}</span>
+        <span>{{ form.username }}</span>
+      </div>
+
+      <div class="md:w-3/4">
+        <span class="font-bold">Password:</span>
+        <span>{{ form.password }}</span>
+      </div>
+    </fieldset>
+    <div class="mt-4">
+      <button class="btn" type="submit">Login</button>
+    </div>
+  </form>
+  <div>
+    <small
+      >Need an account?
+      <a href="{% url 'register'%}" class="ml-2 text-indigo-500"
+        >Sign Up Now</a
+      ></small
+    >
+  </div>
+</div>
+{% endblock content %}

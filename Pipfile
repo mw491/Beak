@@ -8,6 +8,7 @@ django = "*"
 django-browser-reload = "*"
 django-tailwind = "*"
 shortuuid = "*"
+python-decouple = "*"
 
 [dev-packages]
 

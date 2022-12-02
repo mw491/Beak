@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
+from chirps.models import Chirp
 from .forms import RegisterForm, LoginForm
 
 
@@ -45,3 +47,9 @@ def signout(request):
     logout(request)
     messages.success(request, "Logged out successfully")
     return redirect("ui-home")
+
+
+def profile(request, username):
+    profile_user = User.objects.get(username=username)
+    profile_chirps = Chirp.objects.all().filter(author=profile_user)
+    return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps})

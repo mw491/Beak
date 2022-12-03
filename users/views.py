@@ -52,4 +52,5 @@ def signout(request):
 def profile(request, username):
     profile_user = User.objects.get(username=username)
     profile_chirps = Chirp.objects.all().filter(author=profile_user)
-    return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps})
+    profile_profile = profile_user.profile
+    return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps, "profile": profile_profile})

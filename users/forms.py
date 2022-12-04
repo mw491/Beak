@@ -1,9 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
-
-from .models import Profile
 
 
 class RegisterForm(UserCreationForm):
@@ -117,53 +115,3 @@ class LoginForm(AuthenticationForm):
                 "Sorry, that login was invalid. Please try again."
             )
         return self.cleaned_data
-
-
-class ChangeUserForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=100,
-                                 widget=forms.TextInput(
-                                     attrs={
-                                         "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
-                                         "autocomplete": "off",
-                                         "placeholder": "First Name",
-                                     }
-                                 )
-                                 )
-    last_name = forms.CharField(max_length=100,
-                                widget=forms.TextInput(
-                                    attrs={
-                                        "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
-                                        "autocomplete": "off",
-                                        "placeholder": "Last Name",
-                                    }
-                                )
-                                )
-    username = forms.CharField(max_length=100,
-                               widget=forms.TextInput(
-                                   attrs={
-                                       "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
-                                       "autocomplete": "off",
-                                       "placeholder": "Username",
-                                   }
-                               )
-                               )
-
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'username',)
-
-
-class ChangeProfileForm(forms.ModelForm):
-    bio = forms.CharField(max_length=100,
-                          widget=forms.TextInput(
-                              attrs={
-                                  "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
-                                  "autocomplete": "off",
-                                  "placeholder": "Bio",
-                              }
-                          )
-                          )
-
-    class Meta:
-        model = Profile
-        fields = ('bio',)

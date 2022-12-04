@@ -2,16 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from chirps.models import Chirp
-from .forms import RegisterForm, LoginForm
+from users.models import Profile
+from .forms import RegisterForm, LoginForm, ChangeUserForm, ChangeProfileForm
 
 
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             name = (
                 form.cleaned_data.get("first_name")
                 + " "
@@ -21,6 +23,7 @@ def register(request):
                 request,
                 f"A new bird has hatched successfully! Welcome to the new world, {name}! You are now able to login.",
             )
+            Profile.objects.create(user=user)
             return redirect("login")
     else:
         form = RegisterForm()
@@ -54,3 +57,24 @@ def profile(request, username):
     profile_chirps = Chirp.objects.all().filter(author=profile_user)
     profile_profile = profile_user.profile
     return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps, "profile": profile_profile})
+
+
+@login_required
+def change_profile(request, username):
+    user = request.user
+    if request.method == "POST":
+        user_form = ChangeUserForm(request.POST, instance=user)
+        profile_form = ChangeProfileForm(request.POST, instance=user.profile)
+        if user_form.is_valid and profile_form.is_valid:
+            # profile = Profile.objects.get(user=user)
+            # profile.bio = request.POST.get("bio")
+            # profile.save()
+            user_form.save()
+            profile_form.save()
+            messages.success(
+                request, "Account information changed successfully")
+            return redirect("ui-home")
+    else:
+        user_form = ChangeUserForm(instance=user)
+        profile_form = ChangeProfileForm(instance=user.profile)
+    return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username})

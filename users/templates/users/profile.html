@@ -3,9 +3,21 @@
 {% block content %}
 
 <div class="bg-neutral-200 dark:bg-neutral-800 p-4 rounded-md mb-5">
-    <div>
-        <h1 class="inline text-3xl font-bold">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
-        <p class="inline text-neutral-700 dark:text-neutral-400">@{{ profile_user.username }}</p>
+    <div class="flex justify-between">
+        <div class="mb-2">
+            <h1 class="inline text-3xl font-bold">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+            <p class="inline text-neutral-700 dark:text-neutral-400">@{{ profile_user.username }}</p>
+        </div>
+
+
+        {% if profile_user == user %}
+        <div x-data="{hover: false}">
+            <a href="{% url 'profile-edit' profile_user.username %}" @mouseover="hover = true"
+                @mouseout="hover = false">
+                <i :class="hover ? 'fa-solid' : 'fa-regular'" class="fa-pen-to-square"></i>
+            </a>
+        </div>
+        {% endif %}
     </div>
     <p>{{ profile.bio }}</p>
     <p class="text-neutral-600 dark:text-neutral-400">Joined {{ profile.date_created|date:'M Y' }}</p>

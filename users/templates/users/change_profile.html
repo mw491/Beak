@@ -1,0 +1,37 @@
+{% extends "ui/base.html" %} {% block content %}
+<div class="w-full">
+    <form method="post">
+        {% csrf_token %}
+        <fieldset class="space-y-6">
+            <legend class="text-3xl font-semibold mb-2">Change Account Info for @{{ username }}</legend>
+
+
+            <div class="flex gap-7 flex-col md:w-3/4 md:flex-row">
+                <div>
+                    <span class="font-bold">{{ user_form.first_name.label_tag }}</span>
+                    <span>{{ user_form.first_name }}</span>
+                </div>
+
+                <div>
+                    <span class="font-bold">{{ user_form.last_name.label_tag }}</span>
+                    <span>{{ user_form.last_name }}</span>
+                </div>
+
+            </div>
+
+            <div class="md:w-3/4">
+                <span class="font-bold">{{ user_form.username.label_tag }}</span>
+                <span>{{ user_form.username }}</span>
+            </div>
+
+            <div class="md:w-3/4">
+                <span class="font-bold">{{ profile_form.bio.label_tag }}</span>
+                <span>{{ profile_form.bio }}</span>
+            </div>
+        </fieldset>
+        <div class="mt-4">
+            <button class="btn" type="submit">Change</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

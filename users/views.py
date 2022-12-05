@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from chirps.models import Chirp
 from users.models import Profile
-from .forms import RegisterForm, LoginForm, ChangeUserForm, ChangeProfileForm
+from .forms import RegisterForm, LoginForm, ChangeUserForm, ChangeProfileForm, CreateChirpForm
 
 
 def register(request):
@@ -78,3 +78,20 @@ def change_profile(request, username):
         user_form = ChangeUserForm(instance=user)
         profile_form = ChangeProfileForm(instance=user.profile)
     return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username})
+
+
+@login_required
+def create_chirp(request):
+    user = request.user
+    if request.method == "POST":
+        form = CreateChirpForm(request.POST, instance=user.profile)
+        if form.is_valid:
+            content = request.POST.get("content")
+            chirp = Chirp(content=content, author=user)
+            chirp.save()
+            messages.success(
+                request, "Chirped Successfully")
+            return redirect("ui-home")
+    else:
+        form = CreateChirpForm()
+    return render(request, "users/create_chirp.html", {"form": form})

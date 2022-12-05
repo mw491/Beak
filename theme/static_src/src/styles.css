@@ -17,5 +17,5 @@ hr {
 }
 
 .btn {
-    @apply rounded-md my-1 py-2 px-3 bg-indigo-600 text-indigo-50 hover:text-white hover:bg-indigo-700 transition-colors;
+    @apply rounded-md my-1 py-2 px-3 bg-indigo-600 text-indigo-50 hover: text-white hover:bg-indigo-700 transition-colors;
 }

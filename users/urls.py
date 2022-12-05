@@ -9,4 +9,5 @@ urlpatterns = [
     path("<str:username>/profile/", views.profile, name="profile"),
     path("<str:username>/profile/edit",
          views.change_profile, name="profile-edit"),
+    path("chirp/", views.create_chirp, name="create-chirp")
 ]

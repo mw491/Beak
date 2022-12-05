@@ -1,9 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
 from .models import Profile
+from chirps.models import Chirp
 
 
 class RegisterForm(UserCreationForm):
@@ -167,3 +168,19 @@ class ChangeProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('bio',)
+
+
+class CreateChirpForm(forms.ModelForm):
+    content = forms.CharField(max_length=100,
+                              widget=forms.Textarea(
+                                  attrs={
+                                      "class": "w-full rounded-md dark:bg-neutral-800 dark:text-white dark:placeholder:text-white dark:border-white dark:focus:border-none",
+                                      "autocomplete": "off",
+                                      "placeholder": "What is Happening?",
+                                  }
+                              )
+                              )
+
+    class Meta:
+        model = Chirp
+        fields = ('content',)

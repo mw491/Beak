@@ -6,6 +6,6 @@ from shortuuid.django_fields import ShortUUIDField
 
 class Chirp(models.Model):
     id = ShortUUIDField(primary_key=True)
-    content = models.TextField()
+    content = models.TextField(max_length=280)
     date_chirped = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

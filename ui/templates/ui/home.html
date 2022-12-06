@@ -1,4 +1,8 @@
 {% extends "ui/base.html" %} {% block content %}
+
+{% if user.is_authenticated %}
+{% include 'chirps/create_chirp.html' %}
+{% endif %}
 <div>
   {% for chirp in chirps %}
   <article

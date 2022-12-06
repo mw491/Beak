@@ -1,0 +1,15 @@
+<div
+    x-data="{ content: '', limit: '280', get remaining() { return this.limit - this.content.length } }" class="mb-3">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="bg-neutral-800 p-3 rounded-md">
+            {{ form.content }}
+            <div class="flex items-center relative gap-3 mt-2 w-full">
+                <p x-text="remaining"
+                    class="py-2 px-3 text-neutral-400 bg-indigo-800 rounded-md"></p>
+                <button type="submit"
+                    class="p-2 rounded-md bg-indigo-800 hover:bg-indigo-900 text-indigo-50 hover:text-white transition-colors w-full">Chirp</button>
+            </div>
+        </div>
+    </form>
+</div>

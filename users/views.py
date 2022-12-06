@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
 from chirps.models import Chirp
 from users.models import Profile
@@ -54,7 +55,8 @@ def signout(request):
 
 def profile(request, username):
     profile_user = User.objects.get(username=username)
-    profile_chirps = Chirp.objects.all().filter(author=profile_user)
+    profile_chirps = Chirp.objects.all().filter(
+        author=profile_user).order_by('date_chirped').reverse()
     profile_profile = profile_user.profile
     return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps, "profile": profile_profile})
 
@@ -62,22 +64,23 @@ def profile(request, username):
 @login_required
 def change_profile(request, username):
     user = request.user
-    if request.method == "POST":
-        user_form = ChangeUserForm(request.POST, instance=user)
-        profile_form = ChangeProfileForm(request.POST, instance=user.profile)
-        if user_form.is_valid and profile_form.is_valid:
-            # profile = Profile.objects.get(user=user)
-            # profile.bio = request.POST.get("bio")
-            # profile.save()
-            user_form.save()
-            profile_form.save()
-            messages.success(
-                request, "Account information changed successfully")
-            return redirect("ui-home")
-    else:
-        user_form = ChangeUserForm(instance=user)
-        profile_form = ChangeProfileForm(instance=user.profile)
-    return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username})
+    edit_user = User.objects.get(username=username)
+    if user == edit_user:
+        if request.method == "POST":
+            user_form = ChangeUserForm(request.POST, instance=user)
+            profile_form = ChangeProfileForm(
+                request.POST, instance=user.profile)
+            if user_form.is_valid and profile_form.is_valid:
+                user_form.save()
+                profile_form.save()
+                messages.success(
+                    request, "Account information changed successfully")
+                return redirect("ui-home")
+        else:
+            user_form = ChangeUserForm(instance=user)
+            profile_form = ChangeProfileForm(instance=user.profile)
+        return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username})
+    raise PermissionDenied()
 
 
 @login_required

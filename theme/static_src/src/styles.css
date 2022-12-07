@@ -23,3 +23,5 @@ hr {
 textarea {
     resize: none;
 }
+
+[x-cloak] { display: none !important; }

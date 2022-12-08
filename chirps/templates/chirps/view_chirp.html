@@ -21,8 +21,7 @@
 
         <h1 class="text-xl">{{ chirp.content }}</h1>
     </article>
-    <div class="overflow-auto" x-show="showModal" x-cloak
-        :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
+    <div class="overflow-auto absolute inset-0 z-10 flex items-center justify-center" x-show="showModal" x-cloak>
         <!--Dialog-->
         <div class="bg-white dark:bg-neutral-800 w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6"
             x-show="showModal" x-transition @click.away="showModal = false">

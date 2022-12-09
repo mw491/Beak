@@ -1,2 +1,4 @@
 .DS_STORE
 .env
+.gitsecret/keys/random_seed
+!*.secret

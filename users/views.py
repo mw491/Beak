@@ -28,7 +28,7 @@ def register(request):
             return redirect("login")
     else:
         form = RegisterForm()
-    return render(request, "users/register.html", {"form": form})
+    return render(request, "users/register.html", {"form": form, "title": "Sign up for Beak"})
 
 
 def signin(request):
@@ -44,7 +44,7 @@ def signin(request):
             messages.error(
                 request, "Username or Password incorrect. Please try again.")
 
-    return render(request, "users/login.html", {"form": LoginForm()})
+    return render(request, "users/login.html", {"form": LoginForm(), "title": "Login to Beak"})
 
 
 def signout(request):
@@ -58,10 +58,10 @@ def profile(request, username):
     profile_chirps = Chirp.objects.all().filter(
         author=profile_user).order_by('date_chirped').reverse()
     profile_profile = profile_user.profile
-    return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps, "profile": profile_profile})
+    return render(request, "users/profile.html", context={"profile_user": profile_user, "profile_chirps": profile_chirps, "profile": profile_profile, "title": f"{profile_user.get_full_name()}'s Profile"})
 
 
-@login_required
+@ login_required
 def change_profile(request, username):
     user = request.user
     edit_user = User.objects.get(username=username)
@@ -79,22 +79,5 @@ def change_profile(request, username):
         else:
             user_form = ChangeUserForm(instance=user)
             profile_form = ChangeProfileForm(instance=user.profile)
-        return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username})
+        return render(request, "users/change_profile.html", {"user_form": user_form, "profile_form": profile_form, "username": user.username, "title": "Edit your Profile"})
     raise PermissionDenied()
-
-
-@login_required
-def create_chirp(request):
-    user = request.user
-    if request.method == "POST":
-        form = CreateChirpForm(request.POST, instance=user.profile)
-        if form.is_valid:
-            content = request.POST.get("content")
-            chirp = Chirp(content=content, author=user)
-            chirp.save()
-            messages.success(
-                request, "Chirped Successfully")
-            return redirect("ui-home")
-    else:
-        form = CreateChirpForm()
-    return render(request, "users/create_chirp.html", {"form": form})

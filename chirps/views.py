@@ -12,4 +12,4 @@ def view_post(request, username, id):
     author = User.objects.get(username=username)
     chirp = Chirp.objects.get(id=id, author=author)
 
-    return render(request, "chirps/view_chirp.html", {"chirp": chirp, "user": request.user})
+    return render(request, "chirps/view_chirp.html", {"chirp": chirp, "user": request.user, "title": f"{author.get_full_name()}'s Chirp"})

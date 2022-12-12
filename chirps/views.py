@@ -7,7 +7,7 @@ from .models import Chirp
 def view_post(request, username, id):
     if request.POST:
         Chirp.objects.filter(id=id).delete()
-        messages.success("Post successfully deleted")
+        messages.success(request, "Post successfully deleted")
         return redirect("ui-home")
     author = User.objects.get(username=username)
     chirp = Chirp.objects.get(id=id, author=author)

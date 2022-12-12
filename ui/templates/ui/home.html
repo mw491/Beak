@@ -14,7 +14,7 @@
         <a href="{% url 'profile' chirp.author %}" class="font-bold hover:underline">{{ chirp.author.first_name }} {{ chirp.author.last_name }}</a>
         <p class="opacity-80">@{{ chirp.author.username }}</p>
       </div>
-      <i class="fa-solid fa-minus opacity-80"></i>
+      <p class="opacity-90">&#x2022;</p>
       <p x-text="date" class="opacity-80"></p>
     </div>
     <h1>{{ chirp.content }}</h1>

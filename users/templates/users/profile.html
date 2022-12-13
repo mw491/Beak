@@ -5,7 +5,7 @@
 <div class="bg-neutral-200 dark:bg-neutral-800 p-4 rounded-md mb-5">
     <div class="flex justify-between">
         <div class="mb-2">
-            <h1 class="inline text-3xl font-bold">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+            <h1 class="inline text-3xl font-bold">{{ profile_user.get_full_name }}</h1>
             <p class="inline text-neutral-700 dark:text-neutral-400">@{{ profile_user.username }}</p>
         </div>
 
@@ -33,7 +33,7 @@
       x-data="{ date: dayjs('{{ chirp.date_chirped|date:'c' }}').fromNow() }" @click="console.log('hello world')">
       <div class="flex items-center gap-5 mb-2">
         <div class="flex gap-2">
-          <a href="{% url 'profile' chirp.author %}" class="font-bold hover:underline">{{ chirp.author.first_name }} {{ chirp.author.last_name }}</a>
+          <a href="{% url 'profile' chirp.author %}" class="font-bold hover:underline">{{ chirp.author.get_full_name }}</a>
           <p class="opacity-80">@{{ chirp.author.username }}</p>
         </div>
         <p class="opacity-90">&#x2022;</p>

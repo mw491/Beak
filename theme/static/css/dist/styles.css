@@ -818,6 +818,10 @@ select {
   height: 1.5rem;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -836,6 +840,10 @@ select {
 
 .w-1\/2 {
   width: 50%;
+}
+
+.w-5 {
+  width: 1.25rem;
 }
 
 .max-w-3xl {

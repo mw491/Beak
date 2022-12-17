@@ -12,8 +12,9 @@ body {
 hr {
     height: 1px;
     border: none;
-    background-color: #404040;
+    /* background-color: #404040; */
     /* opacity: .85; */
+    @apply bg-neutral-300 dark:bg-neutral-700
 }
 
 .btn {

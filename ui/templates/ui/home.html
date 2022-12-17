@@ -6,7 +6,11 @@
 <div>
   {% for chirp in chirps %}
   {% include 'chirps/chirp_component.html' %}
+
+  {% if not forloop.last %}
   <hr />
+  {% endif %}
+
   {% endfor %}
 </div>
 

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="bg-neutral-200 dark:bg-neutral-800 p-4 rounded-md mb-5">
+<div class="bg-neutral-200 bg-opacity-80 dark:bg-neutral-800 dark:bg-opacity-100 p-4 rounded-md mb-5">
     <div class="flex justify-between">
         <div class="mb-2">
             <h1 class="inline text-3xl font-bold">{{ profile_user.get_full_name }}</h1>
@@ -27,7 +27,7 @@
         {% endif %}
     </div>
     <p>{{ profile.bio }}</p>
-    <p class="text-neutral-600 dark:text-neutral-400">Joined {{ profile.date_created|date:'M Y' }}</p>
+    <p class="text-neutral-600 dark:text-neutral-400">Hatched {{ profile.date_created|date:'M Y' }}</p>
 </div>
 
 
@@ -35,7 +35,9 @@
 <div>
     {% for chirp in profile_chirps %}
     {% include 'chirps/chirp_component.html' %}
+    {% if not forloop.last %}
     <hr />
+    {% endif %}
     {% endfor %}
 </div>
 {% else %}

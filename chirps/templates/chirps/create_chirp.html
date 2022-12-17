@@ -2,7 +2,7 @@
     x-data="{ content: '', limit: '280', get remaining() { return this.limit - this.content.length } }" class="mb-3">
     <form method="POST">
         {% csrf_token %}
-        <div class="bg-neutral-800 p-3 rounded-md">
+        <div class="bg-neutral-100 dark:bg-neutral-800 p-3 rounded-md">
             {{ form.content }}
             <div class="flex items-center relative gap-3 mt-2 w-full">
                 <p x-text="remaining"

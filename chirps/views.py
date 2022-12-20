@@ -16,9 +16,10 @@ def view_chirp(request, username, id):
 
     return render(request, "chirps/view_chirp.html", {"chirp": chirp, "user": request.user, "title": f"{author.get_full_name()}'s Chirp"})
 
+
 def edit_chirp(request, username, id):
-    user = request.user #logged in user
-    author = User.objects.get(username=username) #chirp author
+    user = request.user  # logged in user
+    author = User.objects.get(username=username)  # chirp author
     chirp = Chirp.objects.get(id=id)
     if user == author:
         if request.method == "POST":

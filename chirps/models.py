@@ -9,3 +9,5 @@ class Chirp(models.Model):
     content = models.TextField(max_length=280)
     date_chirped = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    up_votes = models.IntegerField(default=0)
+    down_votes = models.IntegerField(default=0)

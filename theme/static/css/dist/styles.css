@@ -751,8 +751,20 @@ select {
   margin-bottom: 0.25rem;
 }
 
+.ml-0 {
+  margin-left: 0px;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .mb-3 {
@@ -763,16 +775,8 @@ select {
   margin-top: 0.5rem;
 }
 
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
 .mb-10 {
   margin-bottom: 2.5rem;
-}
-
-.ml-0 {
-  margin-left: 0px;
 }
 
 .mt-4 {
@@ -847,20 +851,12 @@ select {
   list-style-type: disc;
 }
 
-.flex-row {
-  flex-direction: row;
-}
-
 .flex-col {
   flex-direction: column;
 }
 
 .items-center {
   align-items: center;
-}
-
-.items-stretch {
-  align-items: stretch;
 }
 
 .justify-end {
@@ -875,16 +871,16 @@ select {
   justify-content: space-between;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
 .gap-5 {
   gap: 1.25rem;
 }
 
 .gap-2 {
   gap: 0.5rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
 }
 
 .gap-7 {
@@ -1098,16 +1094,16 @@ select {
   color: rgb(82 82 82 / var(--tw-text-opacity));
 }
 
+.opacity-50 {
+  opacity: 0.5;
+}
+
 .opacity-80 {
   opacity: 0.8;
 }
 
 .opacity-90 {
   opacity: 0.9;
-}
-
-.opacity-50 {
-  opacity: 0.5;
 }
 
 .shadow-lg {

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import Chirp
 from .forms import EditChirpForm
 from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import login_required
 
 
 def view_chirp(request, username, id):
@@ -36,3 +37,19 @@ def edit_chirp(request, username, id):
 
         return render(request, "chirps/edit_chirp.html", {"form": form, "content": chirp.content, "title": "Edit Your Chirp"})
     raise PermissionDenied()
+
+
+@login_required
+def upvote(request, id, username):
+    chirp = Chirp.objects.get(id=id)
+    chirp.up_votes += 1
+    chirp.save()
+    return redirect("ui-home")
+
+
+@login_required
+def downvote(request, id, username):
+    chirp = Chirp.objects.get(id=id)
+    chirp.down_votes += 1
+    chirp.save()
+    return redirect("ui-home")

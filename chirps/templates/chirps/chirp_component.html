@@ -2,18 +2,18 @@
 <div class="flex">
   <div class="p-4 my-3 flex flex-col items-center justify-between">
     <div class="flex">
-      <button @mouseover="hover = true" @mouseout="hover = false" {% if not user.is_authenticated %}disabled{% endif %} class="{% if not user.is_authenticated %}opacity-50{% endif %}">
-        <!-- Heroicons: hand-thumb-up -->
+      <a href="/{{ chirp.author }}/chirp/{{ chirp.id }}/upvote" {% if not user.is_authenticated %}disabled{% endif %} class="{% if not user.is_authenticated %}opacity-50{% endif %}">
+        <!-- Heroicons: hand-chevron-up -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
         </svg>
-      </button>
+      </a>
     </div>
     <p>{{ chirp.up_votes|subtract:chirp.down_votes }}</p>
     <div class="flex">
-      <button @mouseover="hover = true" @mouseout="hover = false" {% if not user.is_authenticated %}disabled{% endif %} class="{% if not user.is_authenticated %}opacity-50{% endif %}">
-        <!-- Heroicons: hand-thumb-up -->
+      <a href="/{{ chirp.author }}/chirp/{{ chirp.id }}/downvote" {% if not user.is_authenticated %}disabled{% endif %} class="{% if not user.is_authenticated %}opacity-50{% endif %}">
+        <!-- Heroicons: hand-chevron-down -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
           class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -23,14 +23,14 @@
   </div>
 
   <article onclick="window.location.href = '{% url 'view-chirp' username=chirp.author id=chirp.id %}';"
-    class="p-4 my-3 w-full rounded-md cursor-pointer {% if chirp.author == user %}bg-neutral-200 dark:bg-zinc-800 bg-opacity-20 dark:bg-opacity-20{% endif %} hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:bg-opacity-30 dark:hover:bg-opacity-30 transition-colors"
+    class="p-4 my-3 ml-0 w-full rounded-md cursor-pointer {% if chirp.author == user %}bg-neutral-200 dark:bg-zinc-800 bg-opacity-20 dark:bg-opacity-20{% endif %} hover:bg-neutral-200 dark:hover:bg-neutral-800 hover:bg-opacity-30 dark:hover:bg-opacity-30 transition-colors"
     x-data="{ date: dayjs('{{ chirp.date_chirped|date:'c' }}').fromNow() }" @click="console.log('hello world')">
-    <div class="flex items-center gap-5 mb-2">
-      <div class="flex gap-2">
-        <a href="{% url 'profile' chirp.author %}" class="font-bold hover:underline">{{ chirp.author.get_full_name }}</a>
+    <div class="flex items-center mb-2">
+      <div class="flex mr-5">
+        <a href="{% url 'profile' chirp.author %}" class="font-bold hover:underline mr-2">{{ chirp.author.get_full_name }}</a>
         <p class="opacity-80">@{{ chirp.author.username }}</p>
       </div>
-      <p class="opacity-90">&#x2022;</p>
+      <p class="opacity-90 mr-5">&#x2022;</p>
       <p x-text="date" class="opacity-80"></p>
     </div>
     <h1>{{ chirp.content }}</h1>

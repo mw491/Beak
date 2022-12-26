@@ -3,6 +3,7 @@ from django.contrib import messages
 from chirps.models import Chirp
 from chirps.forms import CreateChirpForm
 
+
 def home(request):
     user = request.user
     if request.method == "POST":
@@ -16,5 +17,6 @@ def home(request):
             return redirect("ui-home")
     else:
         form = CreateChirpForm()
-    context = {"chirps": Chirp.objects.order_by('date_chirped').reverse(), "form": form}
+    context = {"chirps": Chirp.objects.order_by(
+        'date_chirped').reverse(), "form": form}
     return render(request, "ui/home.html", context)

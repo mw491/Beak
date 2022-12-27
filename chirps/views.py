@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Chirp
@@ -41,15 +41,19 @@ def edit_chirp(request, username, id):
 
 @login_required
 def upvote(request, id, username):
-    chirp = Chirp.objects.get(id=id)
-    chirp.up_votes += 1
-    chirp.save()
+    chirp = get_object_or_404(Chirp, id=id)
+    if chirp.up_votes.filter(id=request.user.id).exists():
+        chirp.up_votes.remove(request.user)
+    else:
+        chirp.up_votes.add(request.user)
     return redirect("ui-home")
 
 
 @login_required
 def downvote(request, id, username):
-    chirp = Chirp.objects.get(id=id)
-    chirp.down_votes += 1
-    chirp.save()
+    chirp = get_object_or_404(Chirp, id=id)
+    if chirp.down_votes.filter(id=request.user.id).exists():
+        chirp.down_votes.remove(request.user)
+    else:
+        chirp.down_votes.add(request.user)
     return redirect("ui-home")
